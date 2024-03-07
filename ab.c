@@ -18,8 +18,8 @@ bool game_is_running = false;
 int last_frame_time = 0;
 
 struct Point {
-    int x;
-    int y;
+    float x;
+    float y;
 };
 
 struct Point points[NB_POINTS];
@@ -92,7 +92,7 @@ void render() {
     cls();
 
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderDrawPoints(renderer, (SDL_Point*)points, NB_POINTS);
+    SDL_RenderDrawPointsF(renderer, (SDL_FPoint*)points, NB_POINTS);
 
     SDL_RenderPresent(renderer);
 }
