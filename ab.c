@@ -1,16 +1,23 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <SDL2/SDL.h>
+#include <stdlib.h>
 
 #include "ab.h"
+#include "ba.h"
 
-#define LOGICAL_WIDTH 320
-#define LOGICAL_HEIGHT 200
-#define ZOOM 3
+#define LOGICAL_WIDTH 512
+#define LOGICAL_HEIGHT 342
+#define ZOOM 2
 
 #define FPS 30
 #define FRAME_TARGET_TIME (1000 / FPS)
-#define NB_POINTS 256
+
+#define NB_POINTS 512
+#define MAX_X 255
+#define MAX_Y 255
+
+#define MARGIN 20
 
 SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
@@ -73,11 +80,10 @@ void process_input() {
 }
 
 void setup() {
-    size_t i;
-    for (i = 0; i < NB_POINTS; ++i) {
+    for (size_t i = 0; i < NB_POINTS; ++i) {
         struct Point* point = &points[i];
-        point->x = i;
-        point->y = i/2;
+        point->x = rand()%MAX_X;
+        point->y = rand()%MAX_Y;
     }
 }
 
@@ -94,14 +100,29 @@ void cls() {
 void render() {
     cls();
 
+    struct Point transformed[NB_POINTS];
+    float min_x = MARGIN;
+    float max_x = LOGICAL_WIDTH-MARGIN;
+    float min_y = MARGIN;
+    float max_y = LOGICAL_HEIGHT-MARGIN;
+    for (size_t i = 0; i< NB_POINTS; ++i) {
+        struct Point* p = &points[i];
+        struct Point* t = &transformed[i];
+        t->x = remap(0, MAX_X, min_x, max_x, p->x);
+        t->y = remap(0, MAX_Y, min_y, max_y, p->y);
+    }
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderDrawPointsF(renderer, (SDL_FPoint*)points, NB_POINTS);
+    SDL_RenderDrawPointsF(renderer, (SDL_FPoint*)transformed, NB_POINTS);
 
     SDL_RenderPresent(renderer);
 }
 
 void destroy_window() {
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
+    if (NULL != renderer) {
+        SDL_DestroyRenderer(renderer);
+    }
+    if (NULL != window) {
+        SDL_DestroyWindow(window);
+    }
     SDL_Quit();
 }
