@@ -4,8 +4,9 @@
 
 #include "ab.h"
 
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600
+#define LOGICAL_WIDTH 320
+#define LOGICAL_HEIGHT 200
+#define ZOOM 3
 
 #define FPS 30
 #define FRAME_TARGET_TIME (1000 / FPS)
@@ -34,8 +35,8 @@ int initialize_window() {
         "A simple game loop using C & SDL",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
-        WINDOW_WIDTH,
-        WINDOW_HEIGHT,
+        LOGICAL_WIDTH*ZOOM,
+        LOGICAL_HEIGHT*ZOOM,
         0
     );
 
@@ -49,6 +50,8 @@ int initialize_window() {
         fprintf(stderr, "Error creating SDL Renderer.\n");
         return false;
     }
+
+    SDL_RenderSetLogicalSize(renderer, LOGICAL_WIDTH, LOGICAL_HEIGHT);
 
     return true;
 }
