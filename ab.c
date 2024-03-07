@@ -9,12 +9,20 @@
 
 #define FPS 30
 #define FRAME_TARGET_TIME (1000 / FPS)
+#define NB_POINTS 256
 
 SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
 
 bool game_is_running = false;
 int last_frame_time = 0;
+
+struct Point {
+    int x;
+    int y;
+};
+
+struct Point points[NB_POINTS];
 
 int initialize_window() {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -62,6 +70,12 @@ void process_input() {
 }
 
 void setup() {
+    size_t i;
+    for (i = 0; i < NB_POINTS; ++i) {
+        struct Point* point = &points[i];
+        point->x = i;
+        point->y = i/2;
+    }
 }
 
 void update() {
@@ -76,7 +90,10 @@ void cls() {
 
 void render() {
     cls();
-    /*SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);*/
+
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_RenderDrawPoints(renderer, (SDL_Point*)points, NB_POINTS);
+
     SDL_RenderPresent(renderer);
 }
 
