@@ -1,5 +1,5 @@
-#ifndef AB_H
-#define AB_H
+#ifndef B_H
+#define B_H
 
 int initialize_window();
 void setup();
@@ -8,4 +8,4 @@ void update();
 void render();
 void destroy_window();
 
-#endif /*AB_H*/
+#endif

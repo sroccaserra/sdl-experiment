@@ -1,6 +1,6 @@
 #include <stdbool.h>
 
-#include "ab.h"
+#include "b.h"
 
 extern bool game_is_running;
 

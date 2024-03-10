@@ -3,7 +3,7 @@
 #include <SDL2/SDL.h>
 #include <stdlib.h>
 
-#include "ab.h"
+#include "b.h"
 #include "ba.h"
 
 #define LOGICAL_WIDTH 512
@@ -33,7 +33,7 @@ struct Point {
 struct Point points[NB_POINTS];
 
 int initialize_window() {
-    if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         fprintf(stderr, "Error initializing SDL.\n");
         return false;
     }
