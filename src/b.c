@@ -52,7 +52,8 @@ int initialize_window() {
         return false;
     }
 
-    renderer = SDL_CreateRenderer(window, -1, 0);
+    const int rendererFlags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
+    renderer = SDL_CreateRenderer(window, -1, rendererFlags);
     if (!renderer) {
         fprintf(stderr, "Error creating SDL Renderer.\n");
         return false;
