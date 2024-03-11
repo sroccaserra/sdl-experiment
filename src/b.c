@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 #include "b.h"
-#include "ba.h"
+#include "c.h"
 
 #define LOGICAL_WIDTH 512
 #define LOGICAL_HEIGHT 342

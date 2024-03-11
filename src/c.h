@@ -1,5 +1,5 @@
-#ifndef BA_H
-#define BA_H
+#ifndef C_H
+#define C_H
 
 float lerp(float a, float b, float t);
 
