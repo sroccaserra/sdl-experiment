@@ -10,9 +10,6 @@
 #define LOGICAL_HEIGHT 342
 #define ZOOM 2
 
-#define FPS 30
-#define FRAME_TARGET_TIME (1000 / FPS)
-
 #define NB_POINTS 512
 #define MAX_X 255
 #define MAX_Y 255
@@ -93,7 +90,7 @@ void update() {
     last_frame_time = SDL_GetTicks();
 }
 
-void cls() {
+static void cls() {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 }
